@@ -1,0 +1,52 @@
+{
+  "name": "exam-focus-app",
+  "version": "1.0.0",
+  "description": "A fully customizable productivity app with personalized motivations, website blocking, Pomodoro timers, and task management - perfect for students and professionals",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/khushxxii/blocked-sites-redirect.git"
+  },
+  "homepage": "https://github.com/khushxxii/blocked-sites-redirect#readme",
+  "bugs": {
+    "url": "https://github.com/khushxxii/blocked-sites-redirect/issues"
+  },
+  "keywords": [
+    "productivity",
+    "focus",
+    "study",
+    "exam",
+    "pomodoro",
+    "timer",
+    "task-manager",
+    "website-blocker",
+    "student",
+    "education",
+    "time-tracking",
+    "study-tracker",
+    "motivation",
+    "personalized",
+    "customizable",
+    "self-improvement"
+  ],
+  "author": "Khushi",
+  "license": "MIT",
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": ">=6.0.0"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "sqlite3": "^5.1.6",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
+
