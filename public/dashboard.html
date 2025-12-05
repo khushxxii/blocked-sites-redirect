@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📚 Exam Focus Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <img src="/logo.png" alt="Focus Mode Logo">
+            Focus Mode
+        </div>
+        <div class="nav-links">
+            <a href="/" class="nav-link active">Dashboard</a>
+            <a href="/tasks" class="nav-link">Tasks</a>
+            <a href="/tracker" class="nav-link">Study Tracker</a>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <header class="dashboard-header">
+            <p class="greeting" id="greeting" style="font-size: 1.3rem; margin-bottom: 0.5rem; font-weight: 600; opacity: 1;"></p>
+            <h1>Focus Dashboard</h1>
+            <p class="subtitle">Your Productivity Command Center</p>
+        </header>
+        
+        <!-- Countdown Timer -->
+        <div class="countdown-section">
+            <h2>⏳ Exam Countdown</h2>
+            <div class="countdown-display" id="countdownDisplay">
+                <div class="countdown-item">
+                    <span class="countdown-number" id="days">0</span>
+                    <span class="countdown-label">Days</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="hours">0</span>
+                    <span class="countdown-label">Hours</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="minutes">0</span>
+                    <span class="countdown-label">Minutes</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="seconds">0</span>
+                    <span class="countdown-label">Seconds</span>
+                </div>
+            </div>
+            <button class="btn btn-small" onclick="openSettingsModal()">⚙ Set Exam Date</button>
+            <button class="btn btn-small" onclick="window.location.href='/setup'" style="margin-left: 0.5rem;">⚙ Reconfigure App</button>
+        </div>
+        
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+            <div class="stat-card gradient-1">
+                <div class="stat-icon">⏳</div>
+                <div class="stat-value" id="totalStudyTime">0h 0m</div>
+                <div class="stat-label">Total Study Time</div>
+            </div>
+            
+            <div class="stat-card gradient-2">
+                <div class="stat-icon">🏁</div>
+                <div class="stat-value" id="completedTasks">0</div>
+                <div class="stat-label">Completed Tasks</div>
+            </div>
+            
+            <div class="stat-card gradient-3">
+                <div class="stat-icon">⚡</div>
+                <div class="stat-value" id="todayStudyTime">0h 0m</div>
+                <div class="stat-label">Today's Focus Time</div>
+            </div>
+            
+            <div class="stat-card gradient-4">
+                <div class="stat-icon">🎯</div>
+                <div class="stat-value" id="taskProgress">0%</div>
+                <div class="stat-label">Task Completion</div>
+            </div>
+        </div>
+        
+        <!-- Motivation Section -->
+        <div class="motivation-section">
+            <h2>🌟 Your Motivation Arsenal</h2>
+            <div class="motivation-cards">
+                <div class="motivation-card">
+                    <div class="motivation-emoji">✨</div>
+                    <h3>Freedom Awaits</h3>
+                    <p>Think of all the amazing things you'll do AFTER exams! Netflix binges, gaming, hanging out - it's all waiting for you!</p>
+                </div>
+                
+                <div class="motivation-card">
+                    <div class="motivation-emoji">💰</div>
+                    <h3>Valuable Investment</h3>
+                    <p>You're investing so much time and resources. Every study hour brings returns. Make it count!</p>
+                </div>
+                
+                <div class="motivation-card">
+                    <div class="motivation-emoji">🧠</div>
+                    <h3>Need to Learn</h3>
+                    <p>This isn't just about grades - you genuinely NEED to master this stuff. Your future career depends on it!</p>
+                </div>
+                
+                <div class="motivation-card">
+                    <div class="motivation-emoji">🎓</div>
+                    <h3>Future Leader</h3>
+                    <p>You're training to excel in your field. The world needs what you're learning!</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Quick Actions -->
+        <div class="quick-actions">
+            <h2>⚡ Quick Actions</h2>
+            <div class="action-grid">
+                <a href="/tracker" class="action-btn gradient-1">
+                    <span class="action-icon">⏱️</span>
+                    <span>Start Study Session</span>
+                </a>
+                <a href="/tasks" class="action-btn gradient-2">
+                    <span class="action-icon">✓</span>
+                    <span>View Tasks</span>
+                </a>
+                <a href="/blocked?site=youtube" class="action-btn gradient-3">
+                    <span class="action-icon">🛑</span>
+                    <span>Preview Block Page</span>
+                </a>
+            </div>
+        </div>
+        
+        <!-- Recent Tasks -->
+        <div class="recent-section">
+            <h2>📌 Upcoming Tasks</h2>
+            <div id="recentTasks" class="task-list-preview">
+                <p class="loading">Loading tasks...</p>
+            </div>
+            <a href="/tasks" class="btn btn-secondary">View All Tasks →</a>
+        </div>
+    </div>
+    
+    <!-- Settings Modal -->
+    <div id="settingsModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeSettingsModal()">&times;</span>
+            <h2>⚙ Exam Settings</h2>
+            <form id="settingsForm" onsubmit="saveSettings(event)">
+                <div class="form-group">
+                    <label for="examName">Exam Name</label>
+                    <input type="text" id="examName" placeholder="e.g., Final Exams - Unit 1 & 2" required>
+                </div>
+                <div class="form-group">
+                    <label for="examDate">Exam Date</label>
+                    <input type="datetime-local" id="examDate" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Save Settings</button>
+            </form>
+        </div>
+    </div>
+    
+    <footer class="footer">
+        <p>Created with focus by <a href="https://github.com/khushxxii" target="_blank" rel="noopener noreferrer">@khushxxii</a></p>
+    </footer>
+    
+    <script src="time-gradient.js"></script>
+    <script src="dashboard.js"></script>
+</body>
+</html>
+

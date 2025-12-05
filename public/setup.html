@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎯 Setup Your Focus App</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            min-height: 100vh;
+            padding: 2rem;
+        }
+        
+        .setup-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 30px;
+            padding: 3rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.6s ease-out;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .setup-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .setup-header h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, #7ba8f5 0%, #5dcea0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+        
+        .setup-header p {
+            font-size: 1.2rem;
+            color: #718096;
+        }
+        
+        .setup-step {
+            margin-bottom: 2.5rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .setup-step:last-child {
+            border-bottom: none;
+        }
+        
+        .step-title {
+            font-size: 1.5rem;
+            color: #2d3748;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .step-number {
+            background: linear-gradient(135deg, #a8caf5 0%, #8bb4f0 100%);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+        
+        .step-description {
+            color: #718096;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 0.5rem;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        
+        .motivation-inputs {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .motivation-item {
+            display: flex;
+            gap: 1rem;
+            align-items: start;
+        }
+        
+        .motivation-item input {
+            flex: 1;
+        }
+        
+        .btn-remove {
+            padding: 0.75rem 1rem;
+            background: #f56565;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .btn-remove:hover {
+            background: #e53e3e;
+        }
+        
+        .btn-add {
+            padding: 0.75rem 1.5rem;
+            background: #48bb78;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .btn-add:hover {
+            background: #38a169;
+        }
+        
+        .emoji-picker {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .emoji-btn {
+            font-size: 2rem;
+            padding: 0.5rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .emoji-btn:hover {
+            background: #f7fafc;
+            border-color: #3b82f6;
+            transform: scale(1.1);
+        }
+        
+        .emoji-btn.selected {
+            background: #3b82f6;
+            border-color: #3b82f6;
+            transform: scale(1.1);
+        }
+        
+        .quote-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .quote-item {
+            display: flex;
+            gap: 1rem;
+            align-items: start;
+        }
+        
+        .quote-item textarea {
+            flex: 1;
+        }
+        
+        .submit-section {
+            margin-top: 3rem;
+            text-align: center;
+        }
+        
+        .btn-submit {
+            padding: 1.25rem 3rem;
+            background: linear-gradient(135deg, #a8caf5 0%, #8dd9bf 100%);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+        
+        .helper-text {
+            font-size: 0.875rem;
+            color: #718096;
+            margin-top: 0.25rem;
+        }
+        
+        .preset-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .preset-btn {
+            padding: 0.5rem 1rem;
+            background: #edf2f7;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+        
+        .preset-btn:hover {
+            background: #e2e8f0;
+            border-color: #cbd5e0;
+        }
+        
+        /* Morning gradient (5 AM - 11:59 AM) - Yellow to Blue */
+        body.morning {
+            background: linear-gradient(180deg, #ffd89b 0%, #f9a875 30%, #f08a93 60%, #8b9dc3 100%);
+        }
+
+        /* Midday gradient (12 PM - 4:59 PM) - Blue to Yellow */
+        body.midday {
+            background: linear-gradient(180deg, #a8d8ea 0%, #89c9e8 25%, #f4e87c 50%, #ffd966 75%, #ffb347 100%);
+        }
+
+        /* Evening/Sunset gradient (5 PM - 8:59 PM) - Blue to Yellow (reverse of morning) */
+        body.evening {
+            background: linear-gradient(180deg, #8b9dc3 0%, #f08a93 40%, #f9a875 70%, #ffd89b 100%);
+        }
+
+        /* Night gradient (9 PM - 4:59 AM) - Purple to Midnight Blue */
+        body.night {
+            background: linear-gradient(180deg, #6a4c93 0%, #8b5ec5 30%, #4a5f8a 70%, #3d4b6e 100%);
+        }
+    </style>
+</head>
+<body>
+    <div class="setup-container">
+        <div class="setup-header">
+            <div style="display: flex; align-items: center; justify-content: center; gap: 1rem; margin-bottom: 1rem;">
+                <img src="/logo.png" alt="Focus Mode Logo" style="width: 64px; height: 64px; border-radius: 50%;">
+            </div>
+            <h1>Welcome to Your Focus App!</h1>
+            <p>Let's personalize this app for your unique goals and motivations</p>
+        </div>
+        
+        <form id="setupForm">
+            <!-- Step 1: Basic Info -->
+            <div class="setup-step">
+                <h2 class="step-title">
+                    <span class="step-number">1</span>
+                    Basic Information
+                </h2>
+                <p class="step-description">Tell us about yourself and your goals</p>
+                
+                <div class="form-group">
+                    <label for="userName">Your Name (Optional)</label>
+                    <input type="text" id="userName" placeholder="e.g., Alex">
+                    <p class="helper-text">We'll use this to personalize your experience</p>
+                </div>
+                
+                <div class="form-group">
+                    <label for="studyField">What are you studying/working on? *</label>
+                    <input type="text" id="studyField" placeholder="e.g., Computer Science, Medical School, Bar Exam" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="goalDescription">Your Main Goal *</label>
+                    <input type="text" id="goalDescription" placeholder="e.g., Pass Final Exams, Complete Certification, Finish Project" required>
+                </div>
+            </div>
+            
+            <!-- Step 2: Motivations -->
+            <div class="setup-step">
+                <h2 class="step-title">
+                    <span class="step-number">2</span>
+                    Your Personal Motivations
+                </h2>
+                <p class="step-description">What drives you? Click preset buttons below or create your own (minimum 1 required)</p>
+                
+                <div class="preset-buttons">
+                    <button type="button" class="preset-btn" onclick="addPresetMotivation('💰', 'Investment', 'Remember how much you\'re investing in this')">💰 Investment</button>
+                    <button type="button" class="preset-btn" onclick="addPresetMotivation('✨', 'Future Freedom', 'Think of the freedom waiting after you succeed')">✨ Freedom</button>
+                    <button type="button" class="preset-btn" onclick="addPresetMotivation('🎯', 'Career Goals', 'This is essential for your dream career')">🎯 Career</button>
+                    <button type="button" class="preset-btn" onclick="addPresetMotivation('👨‍👩‍👧‍👦', 'Family Pride', 'Make your family proud')">👨‍👩‍👧‍👦 Family</button>
+                    <button type="button" class="preset-btn" onclick="addPresetMotivation('🧠', 'Personal Growth', 'You genuinely need to learn this')">🧠 Growth</button>
+                    <button type="button" class="preset-btn" onclick="addPresetMotivation('🏆', 'Achievement', 'Prove to yourself what you can accomplish')">🏆 Achievement</button>
+                </div>
+                
+                <p style="margin: 1rem 0; color: #718096; font-size: 0.9rem; text-align: center;">
+                    Or add your own custom motivation below:
+                </p>
+                
+                <div class="motivation-inputs" id="motivationInputs">
+                    <!-- Motivations will be added here via buttons or manually -->
+                </div>
+                
+                <button type="button" class="btn-add" onclick="addMotivationField()">+ Add Custom Motivation</button>
+            </div>
+            
+            <!-- Step 3: Motivational Quotes -->
+            <div class="setup-step">
+                <h2 class="step-title">
+                    <span class="step-number">3</span>
+                    Motivational Quotes
+                </h2>
+                <p class="step-description">Add quotes that fire you up when you're tempted to procrastinate (minimum 3)</p>
+                
+                <div class="quote-list" id="quoteList">
+                    <div class="quote-item">
+                        <textarea placeholder="Enter a motivational quote..." class="quote-text" required></textarea>
+                        <button type="button" class="btn-remove" onclick="removeQuote(this)">✕</button>
+                    </div>
+                    <div class="quote-item">
+                        <textarea placeholder="Enter a motivational quote..." class="quote-text" required></textarea>
+                        <button type="button" class="btn-remove" onclick="removeQuote(this)">✕</button>
+                    </div>
+                    <div class="quote-item">
+                        <textarea placeholder="Enter a motivational quote..." class="quote-text" required></textarea>
+                        <button type="button" class="btn-remove" onclick="removeQuote(this)">✕</button>
+                    </div>
+                </div>
+                
+                <button type="button" class="btn-add" onclick="addQuoteField()">+ Add Another Quote</button>
+            </div>
+            
+            <!-- Step 4: Initial Exam/Goal Date -->
+            <div class="setup-step">
+                <h2 class="step-title">
+                    <span class="step-number">4</span>
+                    Set Your Target Date
+                </h2>
+                <p class="step-description">When's your deadline? (You can change this later)</p>
+                
+                <div class="form-group">
+                    <label for="examName">Goal/Exam Name *</label>
+                    <input type="text" id="examName" placeholder="e.g., Final Exams - Unit 1 & 2" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="examDate">Target Date *</label>
+                    <input type="datetime-local" id="examDate" required>
+                </div>
+            </div>
+            
+            <div class="submit-section">
+                <button type="submit" class="btn-submit">Save & Continue</button>
+                <p class="helper-text" style="margin-top: 1rem;">You can change these settings anytime from the dashboard</p>
+            </div>
+        </form>
+    </div>
+    
+    <script>
+        function addMotivationField() {
+            const container = document.getElementById('motivationInputs');
+            const div = document.createElement('div');
+            div.className = 'motivation-item';
+            div.innerHTML = `
+                <input type="text" placeholder="Emoji (e.g., 💰)" class="motivation-emoji" maxlength="2" style="max-width: 80px;">
+                <input type="text" placeholder="Title (e.g., Investment)" class="motivation-title">
+                <input type="text" placeholder="Description" class="motivation-desc">
+                <button type="button" class="btn-remove" onclick="removeMotivation(this)">✕</button>
+            `;
+            container.appendChild(div);
+        }
+        
+        function removeMotivation(button) {
+            const container = document.getElementById('motivationInputs');
+            if (container.children.length > 0) {
+                button.parentElement.remove();
+            }
+        }
+        
+        function addPresetMotivation(emoji, title, description) {
+            const container = document.getElementById('motivationInputs');
+            // Check if this preset already exists
+            const existing = Array.from(container.querySelectorAll('.motivation-title'))
+                .some(input => input.value === title);
+            
+            if (existing) {
+                alert('You already added this motivation!');
+                return;
+            }
+            
+            const div = document.createElement('div');
+            div.className = 'motivation-item';
+            div.innerHTML = `
+                <input type="text" placeholder="Emoji" class="motivation-emoji" maxlength="2" style="max-width: 80px;" value="${emoji}">
+                <input type="text" placeholder="Title" class="motivation-title" value="${title}">
+                <input type="text" placeholder="Description" class="motivation-desc" value="${description}">
+                <button type="button" class="btn-remove" onclick="removeMotivation(this)">✕</button>
+            `;
+            container.appendChild(div);
+        }
+        
+        function addQuoteField() {
+            const container = document.getElementById('quoteList');
+            const div = document.createElement('div');
+            div.className = 'quote-item';
+            div.innerHTML = `
+                <textarea placeholder="Enter a motivational quote..." class="quote-text" required></textarea>
+                <button type="button" class="btn-remove" onclick="removeQuote(this)">✕</button>
+            `;
+            container.appendChild(div);
+        }
+        
+        function removeQuote(button) {
+            const container = document.getElementById('quoteList');
+            if (container.children.length > 3) {
+                button.parentElement.remove();
+            } else {
+                alert('You need at least 3 quotes!');
+            }
+        }
+        
+        document.getElementById('setupForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // Collect all motivations (only those with all fields filled)
+            const motivations = [];
+            document.querySelectorAll('.motivation-item').forEach(item => {
+                const emoji = item.querySelector('.motivation-emoji').value.trim();
+                const title = item.querySelector('.motivation-title').value.trim();
+                const description = item.querySelector('.motivation-desc').value.trim();
+                
+                if (emoji && title && description) {
+                    motivations.push({ emoji, title, description });
+                }
+            });
+            
+            // Collect all quotes
+            const quotes = [];
+            document.querySelectorAll('.quote-text').forEach(textarea => {
+                if (textarea.value.trim()) {
+                    quotes.push(textarea.value.trim());
+                }
+            });
+            
+            if (quotes.length < 3) {
+                alert('Please add at least 3 motivational quotes!');
+                return;
+            }
+            
+            if (motivations.length < 1) {
+                alert('Please add at least 1 motivation! Click a preset button above or use the "Add Custom Motivation" button.');
+                return;
+            }
+            
+            const config = {
+                userName: document.getElementById('userName').value,
+                studyField: document.getElementById('studyField').value,
+                goalDescription: document.getElementById('goalDescription').value,
+                motivations: motivations,
+                quotes: quotes,
+                examName: document.getElementById('examName').value,
+                examDate: document.getElementById('examDate').value,
+                setupCompleted: true
+            };
+            
+            try {
+                const response = await fetch('/api/user-config', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(config)
+                });
+                
+                if (response.ok) {
+                    // Show success message and redirect
+                    alert('Setup complete! Welcome to your personalized focus app!');
+                    window.location.href = '/';
+                } else {
+                    alert('Error saving configuration. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error saving configuration. Please try again.');
+            }
+        });
+        
+        // Set default exam date to 2 weeks from now
+        const defaultDate = new Date();
+        defaultDate.setDate(defaultDate.getDate() + 14);
+        document.getElementById('examDate').value = defaultDate.toISOString().slice(0, 16);
+        
+        // Load existing config if user is reconfiguring
+        async function loadExistingConfig() {
+            try {
+                const response = await fetch('/api/user-config');
+                const config = await response.json();
+                
+                if (config.setup_completed) {
+                    // Pre-populate form with existing values
+                    if (config.user_name) document.getElementById('userName').value = config.user_name;
+                    if (config.study_field) document.getElementById('studyField').value = config.study_field;
+                    if (config.goal_description) document.getElementById('goalDescription').value = config.goal_description;
+                    
+                    // Load motivations
+                    if (config.motivations && config.motivations.length > 0) {
+                        const container = document.getElementById('motivationInputs');
+                        container.innerHTML = '';
+                        config.motivations.forEach(m => {
+                            const div = document.createElement('div');
+                            div.className = 'motivation-item';
+                            div.innerHTML = `
+                                <input type="text" placeholder="Emoji" class="motivation-emoji" maxlength="2" style="max-width: 80px;" value="${m.emoji}">
+                                <input type="text" placeholder="Title" class="motivation-title" value="${m.title}">
+                                <input type="text" placeholder="Description" class="motivation-desc" value="${m.description}">
+                                <button type="button" class="btn-remove" onclick="removeMotivation(this)">✕</button>
+                            `;
+                            container.appendChild(div);
+                        });
+                    }
+                    
+                    // Load quotes
+                    if (config.quotes && config.quotes.length > 0) {
+                        const container = document.getElementById('quoteList');
+                        container.innerHTML = '';
+                        config.quotes.forEach(q => {
+                            const div = document.createElement('div');
+                            div.className = 'quote-item';
+                            div.innerHTML = `
+                                <textarea placeholder="Enter a motivational quote..." class="quote-text" required>${q}</textarea>
+                                <button type="button" class="btn-remove" onclick="removeQuote(this)">✕</button>
+                            `;
+                            container.appendChild(div);
+                        });
+                    }
+                    
+                    // Load exam settings
+                    const settingsResponse = await fetch('/api/settings');
+                    const settings = await settingsResponse.json();
+                    if (settings.exam_name) document.getElementById('examName').value = settings.exam_name;
+                    if (settings.exam_date) {
+                        const date = new Date(settings.exam_date);
+                        const localDate = new Date(date.getTime() - date.getTimezoneOffset() * 60000)
+                            .toISOString()
+                            .slice(0, 16);
+                        document.getElementById('examDate').value = localDate;
+                    }
+                    
+                    // Update header text for reconfiguration
+                    document.querySelector('.setup-header h1').textContent = '🔧 Reconfigure Your Focus App';
+                    document.querySelector('.setup-header p').textContent = 'Update your goals and motivations';
+                    document.querySelector('.btn-submit').textContent = '💾 Save Changes';
+                }
+            } catch (error) {
+                console.error('Error loading config:', error);
+            }
+        }
+        
+        // Load existing config on page load
+        loadExistingConfig();
+    </script>
+    <script src="time-gradient.js"></script>
+</body>
+</html>
+

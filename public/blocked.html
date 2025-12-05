@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚫 Focus Mode Active - Get Back to Work!</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+        
+        /* Morning gradient (5 AM - 11:59 AM) - Yellow to Blue */
+        body.morning {
+            background: linear-gradient(180deg, #ffd89b 0%, #f9a875 30%, #f08a93 60%, #8b9dc3 100%);
+        }
+
+        /* Midday gradient (12 PM - 4:59 PM) - Blue to Yellow */
+        body.midday {
+            background: linear-gradient(180deg, #a8d8ea 0%, #89c9e8 25%, #f4e87c 50%, #ffd966 75%, #ffb347 100%);
+        }
+
+        /* Evening/Sunset gradient (5 PM - 8:59 PM) - Blue to Yellow (reverse of morning) */
+        body.evening {
+            background: linear-gradient(180deg, #8b9dc3 0%, #f08a93 40%, #f9a875 70%, #ffd89b 100%);
+        }
+
+        /* Night gradient (9 PM - 4:59 AM) - Purple to Midnight Blue */
+        body.night {
+            background: linear-gradient(180deg, #6a4c93 0%, #8b5ec5 30%, #4a5f8a 70%, #3d4b6e 100%);
+        }
+        
+        .blocked-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 2rem;
+            position: relative;
+        }
+        
+        .blocked-emoji {
+            font-size: 120px;
+            animation: shake 0.5s ease-in-out infinite;
+            margin-bottom: 1rem;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: rotate(-10deg); }
+            50% { transform: rotate(10deg); }
+        }
+        
+        .blocked-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 3rem;
+            max-width: 700px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.6s ease-out;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .blocked-title {
+            font-size: 2.5rem;
+            color: #2d3748;
+            margin-bottom: 1rem;
+            font-weight: 800;
+        }
+        
+        .blocked-subtitle {
+            font-size: 1.3rem;
+            color: #3b82f6;
+            margin-bottom: 2rem;
+            font-weight: 600;
+        }
+        
+        .motivation-box {
+            background: linear-gradient(135deg, #faa566 0%, #fcb785 100%);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem 0;
+            color: #fff;
+        }
+        
+        .motivation-quote {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .motivation-list {
+            text-align: left;
+            margin: 1.5rem 0;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 1.5rem;
+            border-radius: 15px;
+        }
+        
+        .motivation-list h3 {
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        .motivation-list li {
+            margin: 0.8rem 0;
+            font-size: 1.1rem;
+            font-weight: 500;
+            padding-left: 0.5rem;
+        }
+        
+        .blocked-site {
+            display: inline-block;
+            background: #3b82f6;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            margin: 0.5rem;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        .reality-check {
+            background: linear-gradient(135deg, #8dd9bf 0%, #7dd4b5 100%);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem 0;
+            color: white;
+        }
+        
+        .reality-check h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .fees-reminder {
+            font-size: 2rem;
+            font-weight: 900;
+            margin: 1rem 0;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            border: none;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: #3b82f6;
+            border: 3px solid #3b82f6;
+        }
+        
+        .btn-secondary:hover {
+            background: #3b82f6;
+            color: white;
+        }
+        
+        .floating-icons {
+            position: fixed;
+            font-size: 3rem;
+            opacity: 0.2;
+            animation: float 6s ease-in-out infinite;
+            z-index: 0;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-30px); }
+        }
+        
+        .icon-1 { top: 10%; left: 10%; animation-delay: 0s; }
+        .icon-2 { top: 20%; right: 15%; animation-delay: 1s; }
+        .icon-3 { bottom: 15%; left: 15%; animation-delay: 2s; }
+        .icon-4 { bottom: 20%; right: 10%; animation-delay: 1.5s; }
+        
+        .time-wasted {
+            background: rgba(255, 255, 255, 0.3);
+            padding: 1rem;
+            border-radius: 15px;
+            margin-top: 1rem;
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-icons icon-1">📚</div>
+    <div class="floating-icons icon-2">🎯</div>
+    <div class="floating-icons icon-3">💪</div>
+    <div class="floating-icons icon-4">🚀</div>
+    
+    <div class="blocked-container">
+        <div class="blocked-emoji">🛑</div>
+        
+        <div class="blocked-card">
+            <h1 class="blocked-title">Hold Up! Where Are You Going?</h1>
+            <p class="blocked-subtitle">This site is BLOCKED during focus mode</p>
+            
+            <div class="blocked-site" id="currentSite">Blocked Site</div>
+            
+            <div class="motivation-box">
+                <div class="motivation-quote" id="motivationQuote">
+                    "You decided to eat, so you can't complain that your plate is too full!"
+                </div>
+                
+                <div class="motivation-list">
+                    <h3>💡 Remember WHY You're Doing This:</h3>
+                    <ul>
+                        <li>✨ <strong>Freedom Awaits:</strong> Think of all the things you'll do AFTER you succeed!</li>
+                        <li>💰 <strong>You're Investing So Much</strong> in this journey - make it worth it!</li>
+                        <li>🧠 <strong>You NEED to Learn This:</strong> This is your future you're building!</li>
+                        <li>🎓 <strong>Your Goals Matter:</strong> You're training to excel in your field!</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="reality-check">
+                <h3>⚠️ Reality Check</h3>
+                <div class="fees-reminder">Every minute counts when you're investing THIS much!</div>
+                <p style="font-size: 1.2rem; margin-top: 1rem;">
+                    The plate won't fill itself. You chose this journey, now OWN IT! 🔥
+                </p>
+                <div class="time-wasted">
+                    <strong>Time is money:</strong> Every hour you waste is literally burning your investment!
+                </div>
+            </div>
+            
+            <div class="action-buttons">
+                <a href="/" class="btn btn-primary">🏠 Back to Dashboard</a>
+                <a href="/tracker" class="btn btn-secondary">⏱️ Start Study Session</a>
+            </div>
+            
+            <p style="margin-top: 2rem; color: #718096; font-size: 0.9rem;">
+                ⏳ Exam countdown is ticking... Make every second count!
+            </p>
+        </div>
+    </div>
+    
+    <script src="time-gradient.js"></script>
+    <script>
+        // Load user config and personalize page
+        let userConfig = {};
+        let quotes = [];
+        
+        async function loadUserConfig() {
+            try {
+                const response = await fetch('/api/user-config');
+                userConfig = await response.json();
+                
+                if (userConfig.setup_completed) {
+                    updateBlockedPageContent();
+                } else {
+                    // Use default quotes if setup not completed
+                    quotes = [
+                        "Stay focused! Your future self will thank you!",
+                        "Success requires sacrifice. Get back to work!",
+                        "Every minute counts towards your goals!"
+                    ];
+                    startQuoteRotation();
+                }
+            } catch (error) {
+                console.error('Error loading user config:', error);
+            }
+        }
+        
+        function updateBlockedPageContent() {
+            // Update motivational list
+            if (userConfig.motivations && userConfig.motivations.length > 0) {
+                const motivationList = document.querySelector('.motivation-list ul');
+                if (motivationList) {
+                    motivationList.innerHTML = userConfig.motivations.map(m => `
+                        <li>${m.emoji} <strong>${escapeHtml(m.title)}:</strong> ${escapeHtml(m.description)}</li>
+                    `).join('');
+                }
+            }
+            
+            // Update reality check with study field
+            if (userConfig.study_field || userConfig.goal_description) {
+                const realityCheck = document.querySelector('.reality-check h3');
+                const feesReminder = document.querySelector('.fees-reminder');
+                if (realityCheck && feesReminder) {
+                    realityCheck.textContent = `💸 Remember Your Goal`;
+                    feesReminder.textContent = userConfig.goal_description || 'Every minute counts!';
+                }
+            }
+            
+            // Set up quote rotation with user's quotes
+            quotes = userConfig.quotes || [];
+            if (quotes.length > 0) {
+                startQuoteRotation();
+            }
+        }
+        
+        function startQuoteRotation() {
+            const quoteElement = document.getElementById('motivationQuote');
+            let quoteIndex = Math.floor(Math.random() * quotes.length);
+            quoteElement.textContent = quotes[quoteIndex];
+            
+            function rotateQuote() {
+                quoteElement.style.opacity = '0';
+                setTimeout(() => {
+                    quoteIndex = (quoteIndex + 1) % quotes.length;
+                    quoteElement.textContent = quotes[quoteIndex];
+                    quoteElement.style.opacity = '1';
+                }, 300);
+            }
+            
+            quoteElement.style.transition = 'opacity 0.3s';
+            setInterval(rotateQuote, 8000);
+        }
+        
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        
+        // Detect which site tried to be accessed
+        const urlParams = new URLSearchParams(window.location.search);
+        const site = urlParams.get('site') || 'Unknown Site';
+        
+        const siteEmojis = {
+            'youtube': '📺 YouTube',
+            'netflix': '🎬 Netflix',
+            'primevideo': '📺 Prime Video',
+            'instagram': '📸 Instagram',
+            'facebook': '👥 Facebook',
+            'twitter': '🐦 Twitter',
+            'reddit': '🤖 Reddit',
+            'tiktok': '🎵 TikTok',
+            'twitch': '🎮 Twitch'
+        };
+        
+        const siteKey = site.toLowerCase();
+        document.getElementById('currentSite').textContent = 
+            siteEmojis[siteKey] || `🛑 ${site}`;
+        
+        // Initialize
+        loadUserConfig();
+    </script>
+</body>
+</html>
+
